@@ -1,7 +1,7 @@
 // src/components/QuestionPage.jsx
 import React, { useEffect, useState } from "react";
 
-const Questions = ({ question, onNext }) => {
+const Questions = ({ question, onNext, disableNext = false }) => {
   const [selected, setSelected] = useState([]);
 
   // Reset selection when the question changes
@@ -20,7 +20,8 @@ const Questions = ({ question, onNext }) => {
       if (selected.length < question.maxSelections) {
         setSelected([...selected, option]);
       } else {
-        alert(`You can only select up to ${question.maxSelections} options.`);
+        //remove the first that was selected and add the new one
+        setSelected([...selected.slice(1), option]);
       }
     }
   };
@@ -58,7 +59,7 @@ const Questions = ({ question, onNext }) => {
         })}
       </div>
 
-      <button className="next-btn" onClick={handleNext} type="button">
+      <button className="next-btn" onClick={handleNext} type="button" disabled={disableNext}>
         Next
       </button>
     </div>
