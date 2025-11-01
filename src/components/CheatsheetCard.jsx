@@ -36,14 +36,16 @@ function CheatsheetCard({ cheatsheet, onDelete }) {
                     className="cheatsheet-image"
                     onError={handleImageError}
                 />
-                <div className="cheatsheet-overlay">
-                    <button 
-                        className="cheatsheet-delete-btn"
-                        onClick={onDeleteClick}
-                    >
-                        🗑️
-                    </button>
-                </div>
+                {onDelete && (
+                    <div className="cheatsheet-overlay">
+                        <button 
+                            className="cheatsheet-delete-btn"
+                            onClick={onDeleteClick}
+                        >
+                            🗑️
+                        </button>
+                    </div>
+                )}
                 {cheatsheet.subject && (
                     <div className="cheatsheet-subject-tag">
                         {cheatsheet.subject}
