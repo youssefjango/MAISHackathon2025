@@ -1,14 +1,16 @@
 import '../css/CheatsheetCard.css'
 import placeholderImage from '../assets/cheatsheet_placeholder.png'
 
-function CheatsheetCard({ cheatsheet }) {
+function CheatsheetCard({ cheatsheet, onDelete }) {
     function onCardClick() {
         // Handle viewing/downloading the cheatsheet
     }
 
     function onDeleteClick(e) {
         e.stopPropagation()
-        // Handle deleting the cheatsheet
+        if (onDelete && cheatsheet.id) {
+            onDelete(cheatsheet.id)
+        }
     }
 
     function formatDate(dateString) {
