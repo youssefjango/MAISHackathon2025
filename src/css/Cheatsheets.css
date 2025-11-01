@@ -1,0 +1,98 @@
+.prev-page {
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+  
+  .prev-page-title {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  .shared-section-title {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+  
+  .cheatsheets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .no-cheatsheets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
+  
+  .no-cheatsheets-text {
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+  
+  .create-cheatsheet-btn {
+    padding: 1rem 2.5rem;
+    background-color: #0056d2;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 85, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .create-cheatsheet-btn:hover {
+    background-color: #0066ff;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .prev-page {
+      padding: 1rem;
+    }
+  
+    .prev-page-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .cheatsheets-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+  
+    .no-cheatsheets-text {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .create-cheatsheet-btn {
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cheatsheets-grid {
+      grid-template-columns: 1fr;
+    }
+  }

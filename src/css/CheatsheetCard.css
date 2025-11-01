@@ -1,0 +1,141 @@
+.cheatsheet-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    transition: transform 0.2s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cheatsheet-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .cheatsheet-preview {
+    position: relative;
+    aspect-ratio: 4/3;
+    width: 100%;
+  }
+  
+  .cheatsheet-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .cheatsheet-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.8)
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  
+  .cheatsheet-card:hover .cheatsheet-overlay {
+    opacity: 1;
+  }
+  
+  .cheatsheet-delete-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .cheatsheet-delete-btn:hover {
+    background-color: rgba(220, 20, 60, 0.8);
+  }
+  
+  .cheatsheet-subject-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: rgba(46, 42, 223, 0.9);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10;
+  }
+  
+  .cheatsheet-info {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .cheatsheet-title {
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .cheatsheet-description {
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .cheatsheet-date {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
+    margin-top: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .cheatsheet-card {
+      font-size: 0.9rem;
+    }
+  
+    .cheatsheet-info {
+      padding: 0.75rem;
+    }
+  
+    .cheatsheet-delete-btn {
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
+    }
+  
+    .cheatsheet-subject-tag {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+  

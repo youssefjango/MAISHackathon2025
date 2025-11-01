@@ -1,0 +1,219 @@
+from pdfminer.high_level import extract_text
+from google.cloud import vision
+from google import genai
+import numpy as np
+from pathlib import Path
+import os
+import requests
+import json
+from flask import Flask, request, jsonify
+import re
+
+def is_pdf(file) -> bool:
+    return file.lower().endswith('.pdf')
+
+def is_image(file) -> bool:
+    image_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
+    return any(file.lower().endswith(ext) for ext in image_extensions)
+
+def extract_text_from_pdf(pdf_path: Path) -> str:
+    
+    if not pdf_path.exists() or not is_pdf(pdf_path.name):
+        raise ValueError("File is not a valid PDF")
+    
+    try:
+        text = extract_text(str(pdf_path))
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
+    except Exception as e:
+        return ""
+    
+def pdf_text_to_json(pdf_text: str, output_file: str, restriction: str="") -> str: #returns json filepath
+    
+    if not pdf_text or not pdf_text.strip():
+        summary_data = {
+            "text": "",
+            "restriction": restriction,
+            "error": "Empty input text"
+        }
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(summary_data, f, ensure_ascii=False,indent=4)
+        return output_file
+    
+    summary_data = {
+        "text": pdf_text,
+        "restriction": restriction,
+        "error": None
+    }
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(summary_data, f, ensure_ascii=False, indent=4)  
+    return output_file
+
+def extract_text_from_image(image_path: Path) -> str:
+
+    image_path = Path(image_path).expanduser()
+
+    if not image_path.exists() or not is_image(image_path.name):
+        raise ValueError("File is not a valid image")
+        
+    try:
+        client = vision.ImageAnnotatorClient()
+        with open(image_path, 'rb') as image_file:
+            content = image_file.read()
+        
+        image = vision.Image(content=content)
+        response = client.text_detection(image=image)
+
+        if response.error.message:
+            raise RuntimeError(f"Vision API error: {response.error.message}")
+        
+        full_text = response.full_text_annotation.text if response.full_text_annotation else ""
+        return full_text.strip()
+    
+    except FileNotFoundError:
+        raise FileNotFoundError("Image file not found")
+    except Exception as e:
+        raise RuntimeError(f"Failed to extract text from image: {e}")
+
+def summarize_text(text: str, output_file: str, restriction: str="") -> str: #returns json filepath
+
+    if not text or not text.strip():
+        summary_data = {
+            "text": "",
+            "restriction": restriction,
+            "error": "Empty input text"
+        }
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(summary_data, f, ensure_ascii=False,indent=4)
+        return output_file
+    
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+    prompt = f"Summarize this text concisely:\n\n{text}"
+    summary_data = {"text": "", "restriction": restriction, "error": None}
+
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
+        summary = getattr(response, "text", None) or str(response)
+        summary = summary.strip()
+        summary_data["text"] = summary
+    except Exception as e:
+        summary_data["error"] = str(e)
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(summary_data, f, ensure_ascii=False, indent=4)  
+    return output_file
+
+def file_to_summary(file: Path, output_file: str, restriction: str="") -> str: #returns json filepath from summarize_text
+    if is_image(str(file)):
+        text = extract_text_from_image(file)
+    elif is_pdf(str(file)):
+        text = extract_text_from_pdf(file)
+    else:
+        raise ValueError("File must be an image or PDF")
+    
+    return summarize_text(text, output_file, restriction)
+
+def get_attributes_from_json(json_file: str) -> dict:
+
+
+    if not Path(json_file).exists():
+        raise FileNotFoundError("JSON file not found")
+    
+    with open(json_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    return {
+        "text": data.get("text", ""),
+        "restriction": data.get("restriction", ""),
+        "error": data.get("error", None)
+    }
+
+def test():
+    
+    '''
+    pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
+    
+    try:
+        result = extract_text_from_pdf(pdf_path)
+        print("\n Extracted Text \n")
+        print(result if result else "No text detected")
+    except Exception as e:
+        print("\nError:", e)
+    '''
+
+    '''
+    image_path = Path("/Users/sebastianinouye/Desktop/image.png").expanduser()
+    
+    try:
+        result = extract_text_from_image(image_path)
+        print("\n Extracted Text \n")
+        print(result if result else "No text detected")
+    except Exception as e:
+        print("\nError:", e)
+    '''
+
+    '''
+    sample_text = ("Artificial Intelligence (AI) is transforming industries by enabling machines to learn from data, "
+                   "adapt to new inputs, and perform tasks that typically require human intelligence. "
+                   "From healthcare to finance, AI applications are enhancing decision-making, automating processes, "
+                   "and driving innovation across various sectors.")
+    output_summary_json = "summary_output.json"
+    restriction = "focus on industry applications"
+
+    try:
+        summary_json_file = summarize_text(sample_text, output_summary_json, restriction)
+        summary_attributes = get_attributes_from_json(summary_json_file)
+        print("\nSummary Result:", summary_attributes)
+    except Exception as e:
+        print("\nSummary Error:", str(e))
+    '''
+    
+    '''
+    pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
+    image_path = Path("/Users/sebastianinouye/Desktop/image.png").expanduser()
+    output_pdf_json = "image_output.json"
+    restriction = "explain connections between concepts"
+
+    try:
+        summary = file_to_summary(pdf_path, output_pdf_json, restriction)
+        img_summary_attributes = get_attributes_from_json(summary)
+        print("Summary from Image:", img_summary_attributes)
+    except Exception as e:
+        print("Summary from Image Error:", str(e))
+
+    print("\nPDF Testing complete.")
+
+    try:
+        summary = file_to_summary(image_path, output_pdf_json, restriction)
+        img_summary_attributes = get_attributes_from_json(summary)
+        print("Summary from Image:", img_summary_attributes)
+    except Exception as e:
+        print("Summary from Image Error:", str(e))
+
+    print("\nImage Testing complete.")
+    '''
+
+    pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
+    output_pdf_json = "pdf_output.json"
+    restriction = "highlight key points"
+
+    try:
+        string_pdf = extract_text_from_pdf(pdf_path)
+        print("\n Extracted Text from PDF \n")
+        print(string_pdf if string_pdf else "No text detected")
+    except Exception as e:
+        print("\nError:", e)
+
+    try:
+        json_pdf = pdf_text_to_json(string_pdf, output_pdf_json, restriction)
+        pdf_attributes = get_attributes_from_json(json_pdf)
+        print("\nPDF Text to JSON Result:", pdf_attributes)
+    except Exception as e:
+        print("\nPDF Text to JSON Error:", str(e))
+
+
+test()

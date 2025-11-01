@@ -1,0 +1,113 @@
+.sheet-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: inherit;
+    color: #fff;
+    padding: 4rem 2rem;
+  }
+  
+  /* Bigger preview container */
+  .sheet-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 4rem 3rem 3rem;
+    max-width: 850px; /* wider box */
+    width: 100%;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(25px);
+    transition: transform 0.2s ease;
+  }
+  
+  .sheet-preview:hover {
+    transform: translateY(-3px);
+  }
+  
+  .sheet-preview h1 {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    letter-spacing: 0.6px;
+  }
+  
+  /* Larger image */
+  .sheet-image {
+    width: 340px;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1rem;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Slightly larger description */
+  .sheet-description {
+    color: #d3d3d3;
+    max-width: 600px;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  /* Download buttons below image */
+  .download-section {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .download-btn {
+    width: 150px;
+    height: 52px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  
+  .download-btn.pdf {
+    background: linear-gradient(145deg, #ff4b4b, #ff2222);
+    box-shadow: 0 0 15px rgba(255, 35, 35, 0.45);
+  }
+  
+  .download-btn.docx {
+    background: linear-gradient(145deg, #0a55c7, #0939a6);
+    box-shadow: 0 0 15px rgba(9, 57, 166, 0.45);
+  }
+  
+  .download-btn:hover {
+    transform: translateY(-4px);
+    opacity: 0.95;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 800px) {
+    .sheet-preview {
+      max-width: 90%;
+      padding: 2.5rem 1.8rem;
+    }
+  
+    .sheet-image {
+      width: 260px;
+    }
+  
+    .download-btn {
+      width: 130px;
+      height: 48px;
+      font-size: 1rem;
+    }
+  }
+  
