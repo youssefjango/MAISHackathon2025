@@ -1,7 +1,7 @@
 // src/components/QuestionPage.jsx
 import React, { useEffect, useState } from "react";
 
-const Questions = ({ question, onNext }) => {
+const Questions = ({ question, onNext, disableNext = false }) => {
   const [selected, setSelected] = useState([]);
 
   // Reset selection when the question changes
@@ -59,7 +59,7 @@ const Questions = ({ question, onNext }) => {
         })}
       </div>
 
-      <button className="next-btn" onClick={handleNext} type="button">
+      <button className="next-btn" onClick={handleNext} type="button" disabled={disableNext}>
         Next
       </button>
     </div>
