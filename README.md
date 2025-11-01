@@ -18,12 +18,12 @@ Memo.AI simplifies note-taking and studying by providing a clean interface where
 - Share cheatsheets publicly with other learners.
 
 ---
+## ⚡ Features
 
-## ✨ Features
-
-✅ **AI-Assisted Cheatsheet Creation** – generate concise study notes from prompts.  
-✅ **Predefined Question Sets** – start from structured templates for faster results.  
-✅ **Clean, Responsive UI** – built with modern design and gradients for focus.  
-✅ **Download Options** – export your work as PDF or Docx with one click.  
-✅ **Dynamic Routing** – each cheatsheet has its own page for preview and download.  
----
+| Category | Highlights |
+|-----------|-------------|
+| **Creation** | AI-assisted generation or predefined questions |
+| **Organization** | View all sheets in a responsive grid |
+| **Export** | Download in PDF or Docx format |
+| **UI** | Modern gradient theme & mobile-friendly |
+| **Data** | Local mock data (ready for Firebase/Supabase) |
