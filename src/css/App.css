@@ -40,3 +40,83 @@
 .read-the-docs {
   color: #888;
 }
+
+/* ========= Quiz / Questions styles ========= */
+.question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+}
+
+.question-title {
+  font-size: clamp(1.25rem, 2.2vw + 0.5rem, 2rem);
+  font-weight: 700;
+  margin: 0.25rem 0 0.25rem;
+  text-align: center;
+}
+
+.selection-info {
+  color: #a0a3b1;
+  margin: 0 0 0.75rem;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem 1rem;
+  width: 100%;
+  max-width: 980px;
+}
+
+.option-btn {
+  border: 1px solid rgba(120, 120, 255, 0.35);
+  background: rgba(60, 60, 200, 0.25);
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, transform 40ms ease;
+}
+
+.option-btn:hover {
+  background: rgba(90, 90, 230, 0.35);
+}
+
+.option-btn:active {
+  transform: translateY(1px);
+}
+
+/* Selected state – vivid green pill */
+.option-btn.selected,
+.option-btn[data-selected="true"] {
+  background: #10b981; /* emerald-500 */
+  border-color: #10b981;
+  color: #0b1120; /* dark text for better contrast */
+  font-weight: 600;
+}
+
+/* Next button: larger and spaced farther from options */
+.next-btn {
+  margin-top: 2rem; /* puts it farther below the grid */
+  padding: 0.9rem 1.5rem; /* larger than option buttons */
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #5b6bff 0%, #7a3cff 100%);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(90, 60, 255, 0.25);
+}
+
+.next-btn:hover {
+  filter: brightness(1.05);
+}
+
+.next-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

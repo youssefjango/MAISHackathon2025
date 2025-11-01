@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+// src/components/QuestionPage.jsx
+import React, { useEffect, useState } from "react";
 
-const QuestionPage = ({ question, onNext }) => {
-  const [selected, setSelected] = useState(null);
+const Questions = ({ question, onNext }) => {
+  const [selected, setSelected] = useState([]);
+
+  // Reset selection when the question changes
+  // Prefer a stable key like question.id if available
+  useEffect(() => {
+    setSelected([]);
+  }, [question]);
 
   const handleSelect = (option) => {
-    setSelected(option);
+    // Check if option is already selected
+    if (selected.includes(option)) {
+      // Deselect it
+      setSelected(selected.filter((o) => o !== option));
+    } else {
+      // Add option to selection, but only if we haven't hit the limit
+      if (selected.length < question.maxSelections) {
+        setSelected([...selected, option]);
+      } else {
+        alert(`You can only select up to ${question.maxSelections} options.`);
+      }
+    }
   };
 
   const handleNext = () => {
-    if (!selected) {
-      alert("Please select an option!");
+    if (selected.length === 0) {
+      alert("Please select at least one option!");
       return;
     }
     onNext(selected);
@@ -18,24 +36,33 @@ const QuestionPage = ({ question, onNext }) => {
   return (
     <div className="question-container">
       <h2 className="question-title">{question.text}</h2>
+      <p className="selection-info">
+        (Select up to {question.maxSelections})
+      </p>
 
       <div className="options-grid">
-        {question.options.map((opt, i) => (
-          <button
-            key={i}
-            className={`option-btn ${selected === opt ? "selected" : ""}`}
-            onClick={() => handleSelect(opt)}
-          >
-            {opt}
-          </button>
-        ))}
+        {question.options.map((opt, i) => {
+          const isSelected = selected.includes(opt);
+          return (
+            <button
+              key={i}
+              type="button"
+              className={`option-btn ${isSelected ? "selected" : ""}`}
+              aria-pressed={isSelected}
+              data-selected={isSelected}
+              onClick={() => handleSelect(opt)}
+            >
+              {opt}
+            </button>
+          );
+        })}
       </div>
 
-      <button className="next-btn" onClick={handleNext}>
+      <button className="next-btn" onClick={handleNext} type="button">
         Next
       </button>
     </div>
   );
 };
 
-export default QuestionPage;
+export default Questions;

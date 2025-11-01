@@ -1,17 +1,20 @@
 export const questions = [
   {
+    id: 0,
+    text: "Question 1",
+    options: ["option 1", "option 2", "option 3", "option 4"],
+    maxSelections: 2,
+  },
+  {
     id: 1,
-    text: "What topic do you want to study?",
-    options: ["Math", "Physics", "Programming", "Art"],
+    text: "Question 2",
+    options: ["option 1", "option 2", "option 3", "option 4"],
+    maxSelections: 3,
   },
   {
     id: 2,
-    text: "What difficulty level do you want?",
-    options: ["Beginner", "Intermediate", "Advanced"],
-  },
-  {
-    id: 3,
-    text: "How much time can you spend per day?",
-    options: ["< 1 hour", "1-2 hours", "3+ hours"],
+    text: "Question 3",
+    options: ["option 1", "option 2", "option 3"],
+    maxSelections: 1,
   },
 ];
