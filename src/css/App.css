@@ -120,3 +120,143 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* ========= File picker styles ========= */
+.files-picker {
+  margin: 1rem 0 0.5rem;
+}
+
+.picker-card {
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(40,40,80,0.35), rgba(30,30,60,0.3));
+  border: 1px solid rgba(120, 120, 255, 0.25);
+  padding: 1rem;
+}
+
+.picker-label {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 120px;
+  border: 2px dashed rgba(120, 120, 255, 0.35);
+  border-radius: 12px;
+  cursor: pointer;
+  background: rgba(60, 60, 200, 0.18);
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.picker-label:hover {
+  background: rgba(90, 90, 230, 0.25);
+  border-color: rgba(120, 120, 255, 0.6);
+}
+
+.hidden-file-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.picker-cta {
+  text-align: center;
+}
+.picker-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.picker-sub {
+  color: #a0a3b1;
+  margin-top: 0.25rem;
+}
+
+.file-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.chip.pdf {
+  background: rgba(99, 102, 241, 0.25); /* indigo */
+}
+.chip.image {
+  background: rgba(16, 185, 129, 0.25); /* emerald */
+}
+
+.picker-actions {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+.clear-files-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #e5e7eb;
+  padding: 0.45rem 0.75rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.clear-files-btn:hover { 
+  background: rgba(255,255,255,0.06);
+}
+.picker-count {
+  color: #a0a3b1;
+  font-size: 0.9rem;
+}
+.picker-warning {
+  color: #fbbf24;
+  margin-top: 0.5rem;
+}
+.progress-wrap {
+  margin: 24px 0;
+}
+.progress {
+  width: 100%;
+  height: 12px;
+  background: #1f2937;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transition: width 200ms ease;
+}
+.progress-text {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  margin-top: 8px;
+}
+
+.pdf-container {
+  margin-top: 24px;
+}
+.pdf-frame {
+  width: 100%;
+  height: 70vh;
+  border: 0;
+  border-radius: 8px;
+  background: #0b1220;
+}
+.download-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+}
