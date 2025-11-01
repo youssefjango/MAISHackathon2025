@@ -3,8 +3,9 @@ import './css/App.css'
 import NavBar from './components/NavBar.jsx'
 import { Route, Routes } from "react-router-dom"
 import Home from './pages/Home.jsx'
-import Prev from './pages/Prev.jsx'
+import Cheatsheets from './pages/Cheatsheets.jsx'
 import Create from './pages/Create.jsx'
+import CheatsheetPage from './pages/CheatsheetPage.jsx'
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
-          <Route path="/prev" element={<Prev />} />
+          <Route path="/cheatsheets" element={<Cheatsheets />} />
+          <Route path="/sheet/:id" element={<CheatsheetPage />} />
+
         </Routes>
       </main>
     </>

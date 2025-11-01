@@ -1,16 +1,29 @@
-# React + Vite
+# 🧠 Memo.AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Memo.AI** is a web app that helps students instantly **generate, organize, and download cheatsheets** powered by AI.  
+Built with **React + Vite**, it allows users to create study aids using either predefined question sets or a chatbot-style generator.  
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="public/demo-preview.png" alt="Memo.AI Preview" width="600"/>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Memo.AI simplifies note-taking and studying by providing a clean interface where users can:
+- Create custom cheatsheets from AI prompts or predefined templates.
+- View and manage all saved sheets in a responsive dashboard.
+- Download their sheets in **PDF** or **DOCX** formats.
+- Share cheatsheets publicly with other learners.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+✅ **AI-Assisted Cheatsheet Creation** – generate concise study notes from prompts.  
+✅ **Predefined Question Sets** – start from structured templates for faster results.  
+✅ **Clean, Responsive UI** – built with modern design and gradients for focus.  
+✅ **Download Options** – export your work as PDF or Docx with one click.  
+✅ **Dynamic Routing** – each cheatsheet has its own page for preview and download.  
+---

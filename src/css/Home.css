@@ -40,14 +40,15 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(0, 85, 255, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 85, 255, 0.2);
     transition: all 0.3s ease;
   }
   
   .home-create-button:hover {
     background-color: #0066ff;
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px rgba(0, 100, 255, 0.7);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
   }
   
   .home-create-link {
