@@ -20,7 +20,8 @@ const Questions = ({ question, onNext }) => {
       if (selected.length < question.maxSelections) {
         setSelected([...selected, option]);
       } else {
-        alert(`You can only select up to ${question.maxSelections} options.`);
+        //remove the first that was selected and add the new one
+        setSelected([...selected.slice(1), option]);
       }
     }
   };
