@@ -1,12 +1,9 @@
 from pdfminer.high_level import extract_text
 from google.cloud import vision
 from google import genai
-import numpy as np
 from pathlib import Path
 import os
-import requests
 import json
-from flask import Flask, request, jsonify
 import re
 
 def is_pdf(file) -> bool:
