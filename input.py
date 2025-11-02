@@ -197,6 +197,7 @@ def test():
     print("\nImage Testing complete.")
     '''
 
+    '''
     pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
     output_pdf_json = "pdf_output.json"
     restriction = "highlight key points"
@@ -214,6 +215,69 @@ def test():
         print("\nPDF Text to JSON Result:", pdf_attributes)
     except Exception as e:
         print("\nPDF Text to JSON Error:", str(e))
+    '''
+
+def process_input(input_json: str) -> str: #returns json containing json arr & img arr
+    with open(input_json, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    filepaths = data.get("files", [])
+    restriction = data.get("restriction", "")
+    filepaths = [Path(p)for p in filepaths if Path(p).exists()]
+    output_files = []
+    output_imgs = []
+
+    for filepath in filepaths:
+        if is_image(str(filepath)):
+            json_output = file_to_summary(filepath, f"{filepath.stem}_summary.json", restriction)
+            output_files.append(json_output)
+            output_imgs.append(str(filepath))
+        elif is_pdf(str(filepath)):
+            full_text = extract_text_from_pdf(filepath)
+            json_output = pdf_text_to_json(full_text, f"{filepath.stem}_text.json", restriction)
+            output_files.append(json_output)
+        else:
+            continue
+
+    data_output = {
+        "json_files": output_files,
+        "image_files": output_imgs
+    }
+
+    output_json = "processed_output.json"
+    with open(output_json, "w", encoding="utf-8") as f:
+        json.dump(data_output, f, ensure_ascii=False, indent=4)
+    return output_json
+
+def test_process_input():
+    input_data = {
+        "files": [
+            "/Users/sebastianinouye/Desktop/sample.pdf",
+            "/Users/sebastianinouye/Desktop/image.png"
+        ],
+        "restriction": "summarize key points"
+    }
+    input_json = "input_test.json"
+    with open(input_json, "w", encoding="utf-8") as f:
+        json.dump(input_data, f, ensure_ascii=False, indent=4)
+    
+    output_json = process_input(input_json)
+    with open(output_json, "r", encoding="utf-8") as f:
+        result = json.load(f)
+    
+    json_files = result.get("json_files", [])
+
+    for jf in json_files:
+        path = Path(jf)
+        if path.exists():
+            with open(path, "r", encoding="utf-8") as f:
+                content = json.load(f)
+            print(f"Content of {jf}:", content)
+        else:
+            print(f"File {jf} does not exist.")
+
+    print("Processed Output:", result)
 
 
-test()
+#test()
+test_process_input()
