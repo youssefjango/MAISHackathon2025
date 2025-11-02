@@ -95,7 +95,7 @@ def summarize_text(text: str, output_file: str, restriction: str="") -> str: #re
             contents=prompt,
         )
         summary = getattr(response, "text", None) or str(response)
-        summary = summary.strip()
+        summary = re.sub(r'\s+', ' ', summary).strip()
         summary_data["text"] = summary
     except Exception as e:
         summary_data["error"] = str(e)
