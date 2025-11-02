@@ -1,5 +1,0 @@
-{
-    "text": "This C program demonstrates basic input/output using the `stdio.h` library. It prompts the user (\"Freshman:\"), reads a single character (`getc`), and if it's 'Y' or 'y', prints \"Welcome\" (`puts`); otherwise, it prints \"Sorry, try again.\" The text also explains C fundamentals like the `main` function's entry point, `int` return type, `void` arguments, and variable declaration.",
-    "restriction": "The size of each page should be of the format of one Letter (8.5 × 11 in). There should be 3 pages of maximum pages allowed. The content should be prioritized in the cheatsheet should be formulas, solutions to exercices, key concepts. The following features of the crib sheet should make the sheet more comfortable to use, and should be prioritized: Compact, dense information in small text. The overall layout style should be Structured boxes or tables. The font size used in the cheatsheet should be in the Medium (11-12 pt) range to ensure readability and efficiency.",
-    "error": null
-}

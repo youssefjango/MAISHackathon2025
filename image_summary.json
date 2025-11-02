@@ -1,5 +1,0 @@
-{
-    "text": "This diagram illustrates three distinct cortico-basal ganglia-thalamo-cortical loops, each regulating different functions:\n\n1.  **Body Movement Loop:** Originates in primary, premotor, and supplementary motor cortices, passes through the putamen, globus pallidus, and specific ventral lateral/anterior thalamic nuclei, returning to motor/somatosensory areas to regulate movement.\n2.  **Prefrontal Loop:** Involves the dorsolateral prefrontal cortex (as both input and target), the anterior caudate, globus pallidus, and mediodorsal/ventral anterior thalamic nuclei, mediating executive functions.\n3.  **Limbic Loop:** Connects anterior cingulate/orbitofrontal/limbic cortices with the ventral striatum (nucleus accumbens), ventral pallidum, and mediodorsal thalamus, mediating emotion, motivation, and memory.",
-    "restriction": "summarize key points",
-    "error": null
-}
