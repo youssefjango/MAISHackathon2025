@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Math 101",
+    "subject": "Mathematics",
+    "description": "Core calculus formulas and algebraic identities.",
+    "date": "2024-01-14"
+  },
+  {
+    "id": 2,
+    "title": "Physics Fundamentals",
+    "subject": "Physics",
+    "description": "Motion, forces, and key equations for mechanics.",
+    "date": "2024-02-10"
+  }
+]

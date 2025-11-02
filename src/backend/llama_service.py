@@ -36,7 +36,7 @@ Requirements:
       so that boxes align neatly across rows.
 - Columns or grid cells must stay balanced and aligned; avoid large empty areas.
 - Ensure all text and elements fit within a single A4 page (no overflow).
-- Use compact font (8–10px), tight line spacing (1.15), and small page margins (around 0.5cm).
+- Use compact font, tight line spacing (1.15), and small page margins (around 0.5cm).
 - Visually distinguish definitions, examples, and exercises using subtle colored boxes.
 - For large formulas, tables, or images, use a "full-width" section spanning all columns or grid cells.
 - Do NOT use position:absolute or fixed elements; all content must flow naturally.

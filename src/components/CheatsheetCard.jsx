@@ -30,7 +30,7 @@ function CheatsheetCard({ cheatsheet, onDelete }) {
     }
 
     return (
-        <Link to={`/sheet/${cheatsheet.id}`} className="cheatsheet-link">
+        <Link to={`/cheatsheet/${cheatsheet.id}`} className="cheatsheet-link">
             <div className="cheatsheet-card" onClick={onCardClick}>
                 <div className="cheatsheet-preview">
                     <img 
