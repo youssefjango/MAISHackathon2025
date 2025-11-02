@@ -244,6 +244,11 @@ def process_input(input_json: str) -> str: #returns json containing json arr & i
     output_json = "processed_output.json"
     with open(output_json, "w", encoding="utf-8") as f:
         json.dump(data_output, f, ensure_ascii=False, indent=4)
+
+    with open(output_json, "r", encoding="utf-8") as f:
+        result = json.load(f)
+    print("Processed Output:", result)
+
     return output_json
 
 def test_process_input():
@@ -277,4 +282,4 @@ def test_process_input():
 
 
 #test()
-test_process_input()
+#test_process_input()

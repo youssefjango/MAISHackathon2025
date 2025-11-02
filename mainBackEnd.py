@@ -48,10 +48,11 @@ async def generate_pdf(
 
         # Run your path-based processing
         pdf_bytes = process_input(jsonInput)
-
+        return pdf_bytes
+    
         # TempDirectory auto-deletes here
-        return StreamingResponse(
-            io.BytesIO(pdf_bytes),
-            media_type="application/pdf",
-            headers={"Content-Disposition": 'inline; filename="result.pdf"'},
-        )
+        #return StreamingResponse(
+        #    io.BytesIO(pdf_bytes),
+        #    media_type="application/pdf",
+        #    headers={"Content-Disposition": 'inline; filename="result.pdf"'},
+        #)
