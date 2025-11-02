@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #000000;
+    background: linear-gradient(90deg, rgba(10,8,20,0.98), rgba(20,14,60,0.95));
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -10,8 +10,11 @@
   }
   
   .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: var(--ff-display);
+    letter-spacing: 0.04em;
+    color: #fff;
   }
   
   .navbar-brand a {
@@ -25,16 +28,20 @@
   }
   
   .nav-link {
-    color: white;
+    color: rgba(255,255,255,0.9);
     text-decoration: none;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+    font-size: 0.98rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    transition: background-color 0.18s, transform 0.18s, box-shadow 0.18s;
+    font-family: var(--ff-ui);
+    letter-spacing: 0.02em;
   }
   
   .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(122,91,255,0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(122,91,255,0.06);
   }
   
   @media (max-width: 768px) {

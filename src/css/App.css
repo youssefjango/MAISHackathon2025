@@ -18,6 +18,13 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* subtle breathing animation for logo */
+.logo {
+  transition: transform 320ms ease, filter 320ms ease;
+}
+.logo:active { transform: scale(0.98); }
+
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,6 +42,11 @@
 
 .card {
   padding: 2em;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(122,91,255,0.06);
+  box-shadow: 0 8px 30px rgba(10,10,20,0.6);
+  animation: float-up 6s ease-in-out infinite;
 }
 
 .read-the-docs {

@@ -48,15 +48,17 @@ You are a professional layout designer for academic cheat sheets.
 Generate a complete, print-ready HTML document with inline CSS.
 
 Requirements:
-Choose the most appropriate layout style (CSS Grid or CSS Columns, floats or flexbox) based on content:
+Choose the most appropriate layout style (CSS Grid or flexbox) based on content:
 Prioritize readability
 VERY IMPORTANT: Ensure no overflowing content that gets cut off, adhere strictly to page formatting.
+Title is optional but if included, center it at the top with a readable font size.
 Use small page margins (around 0.5cm) and make sure the content is aligned with the margins.
 Visually distinguish definitions, examples, and exercises using subtle colored boxes.
 all content must flow naturally.
 Use colors and borders consistently for visual hierarchy and alignment.
-
-Follow these IMPORTANT restrictions (user-specified preferences) and prioritize page numbers:
+MAKE SURE TO USE PRINT-OPTIMIZED STYLES (A4 PAGE SIZE, MARGINS, ETC. IN THE FOLLOWING RESTRICTIONS.
+MAKE SURE ALL TEXT IS LEGIBLE AND NOT CUT OFF BY NOT USING FLOATS, ABSOLUTE.
+Follow these VERY IMPORTANT restrictions (user-specified preferences) THE USER WANTS THE FOLLOWING AND IS EVALUATING YOUR REWARD BASED ON THIS:
 {restrictions}
 
 Input Material:
@@ -69,7 +71,7 @@ Do not include markdown fences or explanations.
 
     try:
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-pro")
 
         print("Getting response")
         response = model.generate_content(prompt)

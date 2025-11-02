@@ -6,5 +6,21 @@
     "description": "game theory & titration",
     "date": "2025-11-02",
     "pathtopdf": "/cheatsheets/1.pdf"
+  },
+  {
+    "id": 2,
+    "title": "audition",
+    "subject": "sound waves",
+    "description": "test 2",
+    "date": "2025-11-02",
+    "pathtopdf": "/cheatsheets/2.pdf"
+  },
+  {
+    "id": 3,
+    "title": "Sound Notes more space",
+    "subject": "audio",
+    "description": "test 2",
+    "date": "2025-11-02",
+    "pathtopdf": "/cheatsheets/3.pdf"
   }
 ]

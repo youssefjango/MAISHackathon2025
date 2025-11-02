@@ -170,7 +170,10 @@ export default function Create() {
                 return;
             }
             console.log("Final files:", [...pdfFiles, ...imageFiles]);
+
             // 4) Ask backend for PDF (multipart with combined files)
+            // mark submitting here so the Next button (in Questions) becomes disabled immediately
+            setSubmitting(true);
            await generatePdf(restrictions, [...pdfFiles, ...imageFiles]);
         } else {
             setCurrentIndex((prev) => prev + 1);
@@ -223,11 +226,14 @@ export default function Create() {
             )}
             {/* Show the questionnaire until a PDF is ready */}
             {!pdfUrl && (
-                <QuestionPage
-                    question={questions[currentIndex]}
-                    onNext={handleCurrent}
-                    disableNext={(currentIndex === questions.length - 1) && ((pdfFiles.length + imageFiles.length) === 0)}
-                />
+                    <QuestionPage
+                        question={questions[currentIndex]}
+                        onNext={handleCurrent}
+                        disableNext={
+                            submitting ||
+                            ((currentIndex === questions.length - 1) && ((pdfFiles.length + imageFiles.length) === 0))
+                        }
+                    />
             )}
 
             {/* Progress bar while generating */}
