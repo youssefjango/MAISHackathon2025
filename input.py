@@ -104,7 +104,7 @@ def summarize_text(text: str, output_file: str, restriction: str="") -> str: #re
         return output_file
     
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    prompt = f"Reformat this text in an organized way, WITHOUT losing any critical information:\n\n{text}"
+    prompt = f"Summarize this text concisely, breaking up into bullet points representing main topics:\n\n{text}"
     summary_data = {"text": "", "restriction": restriction, "error": None}
 
     try:
