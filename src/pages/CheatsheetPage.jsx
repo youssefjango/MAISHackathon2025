@@ -11,15 +11,17 @@ function CheatsheetPage() {
     // Fetch both personal and shared cheatsheets
     async function fetchCheatsheets() {
       try {
+        // Fetch both personal and shared cheatsheets from the public/data folder.
+        // `sharedCheatsheets.json` exists in `public/data` in this project.
         const [localRes, sharedRes] = await Promise.all([
           fetch('/data/cheatsheets.json'),
-          fetch('/data/sharedCheatsheets.json'),
+          fetch('/data/sharedCheatsheets.json')
         ])
 
-        const [localData, sharedData] = await Promise.all([
-          localRes.json(),
-          sharedRes.json(),
-        ])
+        // If any response isn't ok, treat its data as an empty array so we
+        // still show available cheatsheets.
+        const localData = localRes && localRes.ok ? await localRes.json() : []
+        const sharedData = sharedRes && sharedRes.ok ? await sharedRes.json() : []
 
         const allCheatsheets = [...localData, ...sharedData]
         const found = allCheatsheets.find(
@@ -34,6 +36,36 @@ function CheatsheetPage() {
 
     fetchCheatsheets()
   }, [id])
+  // Generic download helper: fetches a resource and triggers a download.
+  async function download(url, filename) {
+    if (!url) {
+      console.warn('No URL provided for download')
+      return
+    }
+
+    try {
+      const res = await fetch(url)
+      if (!res.ok) {
+        // fallback: open in new tab
+        window.open(url, '_blank')
+        return
+      }
+      const blob = await res.blob()
+      const blobUrl = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = blobUrl
+      a.download = filename || url.split('/').pop() || 'download'
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000)
+    } catch (err) {
+      console.error('Download failed, opening in new tab as fallback:', err)
+      window.open(url, '_blank')
+    }
+  }
+
+  // (Docx conversion removed) Only PDF download is supported now.
 
 
   if (!cheatsheet) {
@@ -54,8 +86,15 @@ function CheatsheetPage() {
         </p>
 
         <div className="download-section">
-          <button className="download-btn pdf">PDF</button>
-          <button className="download-btn docx">Docx</button>
+          <button
+            className="download-btn pdf"
+            onClick={() =>
+              download(cheatsheet.pathtopdf, `${cheatsheet.title || 'cheatsheet'}.pdf`)
+            }
+          >
+            PDF
+          </button>
+          {/* Docx conversion removed — only PDF download is available */}
         </div>
       </div>
     </div>
