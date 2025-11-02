@@ -121,6 +121,8 @@ async def generate(body: dict):
         filename = f"cheatsheet_{int(os.times()[4]*1000)}.pdf"
         path = create_pdf_from_html(html_doc, filename)
 
-        return {"pdf_url": path, "html_preview": html_doc[:1000] + "..."}
+        output = {"pdf_url": path, "html_preview": html_doc[:1000] + "..."}
+        print(output)
+        return output
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
