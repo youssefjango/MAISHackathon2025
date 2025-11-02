@@ -1,0 +1,10 @@
+[
+  {
+    "id": "shared-1",
+    "title": "React.js Cheat Sheet",
+    "subject": "Programming",
+    "description": "Hooks, components, state management, and best practices.",
+    "date": "2024-03-20",
+    "shared": true
+  }
+]
