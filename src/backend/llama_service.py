@@ -107,8 +107,9 @@ def create_pdf_from_html(html_content, filename):
 # -------------------------------
 # FastAPI endpoint
 # -------------------------------
-@app.post("/generate-cheatsheet")
-async def generate(body: dict):
+#@app.post("/generate-cheatsheet")
+def generate(body: dict):
+    
     try:
         material = body.get("material", [])
         restrictions = body.get("restriction", "")
@@ -126,3 +127,5 @@ async def generate(body: dict):
         return output
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+

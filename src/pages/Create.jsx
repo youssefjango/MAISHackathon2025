@@ -91,7 +91,7 @@ export default function Create() {
             const url = URL.createObjectURL(blob);
             setPdfUrl(url);
         } catch (err) {
-            //alert("Failed to generate PDF.");
+            alert("Failed to generate PDF.");
             window.location.href = "/";
         } finally {
             stopProgress();

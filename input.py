@@ -86,7 +86,7 @@ def summarize_text(text: str, output_file: str, restriction: str="") -> str: #re
         return output_file
     
     client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-    prompt = f"Summarize this text concisely:\n\n{text}"
+    prompt = f"Reformat this text in an organized way, WITHOUT losing any critical information:\n\n{text}"
     summary_data = {"text": "", "restriction": restriction, "error": None}
 
     try:
@@ -215,6 +215,7 @@ def test():
     '''
 
 def process_input(input_json: str) -> str: #returns json containing json arr & img arr
+
     with open(input_json, "r", encoding="utf-8") as f:
         data = json.load(f)
     
@@ -230,8 +231,7 @@ def process_input(input_json: str) -> str: #returns json containing json arr & i
             output_files.append(json_output)
             output_imgs.append(str(filepath))
         elif is_pdf(str(filepath)):
-            full_text = extract_text_from_pdf(filepath)
-            json_output = pdf_text_to_json(full_text, f"{filepath.stem}_text.json", restriction)
+            json_output = file_to_summary(filepath, f"{filepath.stem}_text.json", restriction)
             output_files.append(json_output)
         else:
             continue
@@ -251,7 +251,28 @@ def process_input(input_json: str) -> str: #returns json containing json arr & i
 
     return output_json
 
+def reformat_output(output_json: str) -> dict: #returns dict with material arr & restriction str
+    with open(output_json, "r") as f:
+        data = json.load(f)
+
+    result = {
+        "material": [],
+        "restriction": None
+    }
+
+    for json_file in data.get("json_files", []):
+        with open(json_file, "r") as jf:
+            content = json.load(jf)
+            result["material"].append(content.get("text", ""))
+
+            if result["restriction"] is None:
+                result["restriction"] = content.get("restriction", "")
+
+    print("Reformatted Output:", result)
+    return result
+
 def test_process_input():
+
     input_data = {
         "files": [
             "/Users/sebastianinouye/Desktop/sample.pdf",
@@ -280,6 +301,8 @@ def test_process_input():
 
     print("Processed Output:", result)
 
+    formatted = reformat_output(output_json)
+    print("Reformatted Output:", formatted)
 
 #test()
 #test_process_input()
