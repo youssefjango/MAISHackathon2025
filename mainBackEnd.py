@@ -36,7 +36,7 @@ Requirements:
 Choose the most appropriate layout style (CSS Grid or CSS Columns, floats or flexbox) based on content:
 Prioritize readability
 Ensure no overflowing content that gets cut off.
-Use small page margins (around 0.5cm) and make sure the content is aligned with the margins.
+Use small page margins (around 0.5cm) and make sure the content is aligned with the marginsc.
 Visually distinguish definitions, examples, and exercises using subtle colored boxes.
 all content must flow naturally.
 Use colors and borders consistently for visual hierarchy and alignment.
