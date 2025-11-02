@@ -12,6 +12,14 @@ export default function Create() {
     const [progress, setProgress] = useState(0);
     const progressTimer = useRef(null);
 
+    // Save modal state and metadata for library entry
+    const [showSaveModal, setShowSaveModal] = useState(false);
+    const [meta, setMeta] = useState({
+        title: `Cheatsheet - ${new Date().toLocaleString()}`,
+        subject: "",
+        description: "",
+    });
+
     // Combined max for PDFs + Images
     const MAX_UPLOADS = 5; // adjust as needed
 
@@ -96,6 +104,31 @@ export default function Create() {
         } finally {
             stopProgress();
             setSubmitting(false);
+        }
+    };
+
+    // Upload the generated PDF blob and metadata to backend to append to JSON library
+    const saveToLibrary = async () => {
+        if (!pdfUrl) return;
+        try {
+            const blob = await fetch(pdfUrl).then((r) => r.blob());
+            const form = new FormData();
+            form.append("title", meta.title || "");
+            form.append("subject", meta.subject || "");
+            form.append("description", meta.description || "");
+            form.append("file", new File([blob], "result.pdf", { type: "application/pdf" }));
+
+            const res = await fetch("http://localhost:8000/api/cheatsheets/add", {
+                method: "POST",
+                body: form,
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            await res.json();
+            setShowSaveModal(false);
+            alert("Saved to library.");
+        } catch (e) {
+            console.error("Failed to save to library", e);
+            alert("Failed to save. See console for details.");
         }
     };
 
@@ -225,6 +258,48 @@ export default function Create() {
                     >
                         Download PDF
                     </a>
+                    <button className="download-btn" type="button" onClick={() => setShowSaveModal(true)}>
+                        Add to Library
+                    </button>
+                </div>
+            )}
+
+            {showSaveModal && (
+                <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+                    <div style={{ background: "#fff", padding: 20, borderRadius: 8, width: 420, maxWidth: "90%" }}>
+                        <h3>Save Cheatsheet</h3>
+                        <div style={{ display: "grid", gap: 10 }}>
+                            <label>
+                                Title
+                                <input
+                                    style={{ width: "100%" }}
+                                    value={meta.title}
+                                    onChange={(e) => setMeta({ ...meta, title: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Subject
+                                <input
+                                    style={{ width: "100%" }}
+                                    value={meta.subject}
+                                    onChange={(e) => setMeta({ ...meta, subject: e.target.value })}
+                                />
+                            </label>
+                            <label>
+                                Description
+                                <textarea
+                                    style={{ width: "100%" }}
+                                    rows={3}
+                                    value={meta.description}
+                                    onChange={(e) => setMeta({ ...meta, description: e.target.value })}
+                                />
+                            </label>
+                        </div>
+                        <div style={{ display: "flex", gap: 8, marginTop: 12, justifyContent: "flex-end" }}>
+                            <button onClick={() => setShowSaveModal(false)}>Cancel</button>
+                            <button className="download-btn" onClick={saveToLibrary}>Save</button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
