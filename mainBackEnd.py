@@ -23,6 +23,16 @@ app = FastAPI()
 
 OUTPUT_DIR = "output"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+MAX_MATERIAL_CHARS = 30_000
+
+def prepare_material(material: List[str]) -> str:
+
+    labeled_parts = []
+    for i, entry in enumerate(material):
+        labeled = f"Item {i+1} (type: {type}):\n{entry}\n"
+        labeled_parts.append(labeled)
+    return labeled_parts
+
 
 def generate_cheatsheet(input_data: dict) -> str:
     material = input_data.get("material", [])
@@ -30,6 +40,8 @@ def generate_cheatsheet(input_data: dict) -> str:
 
     if not material:
         raise HTTPException(status_code=400, detail="No material provided")
+    
+    material_block = prepare_material(material)
 
     prompt = f"""
 You are a professional layout designer for academic cheat sheets.
@@ -38,8 +50,8 @@ Generate a complete, print-ready HTML document with inline CSS.
 Requirements:
 Choose the most appropriate layout style (CSS Grid or CSS Columns, floats or flexbox) based on content:
 Prioritize readability
-Ensure no overflowing content that gets cut off.
-Use small page margins (around 0.5cm) and make sure the content is aligned with the marginsc.
+VERY IMPORTANT: Ensure no overflowing content that gets cut off, adhere strictly to page formatting.
+Use small page margins (around 0.5cm) and make sure the content is aligned with the margins.
 Visually distinguish definitions, examples, and exercises using subtle colored boxes.
 all content must flow naturally.
 Use colors and borders consistently for visual hierarchy and alignment.
@@ -48,16 +60,12 @@ Follow these IMPORTANT restrictions (user-specified preferences) and prioritize 
 {restrictions}
 
 Input Material:
-{json.dumps(material, indent=2)}
+{material_block}
 
 Output:
-Return ONLY valid markdown language starting with <html.
+Return ONLY valid HTML starting with <html.
 Do not include markdown fences or explanations.
 """
-
-
-
-
 
     try:
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))

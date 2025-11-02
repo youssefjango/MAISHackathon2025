@@ -60,13 +60,31 @@ def extract_text_from_image(image_path: Path) -> str:
             content = image_file.read()
         
         image = vision.Image(content=content)
-        response = client.text_detection(image=image)
+        #response = client.text_detection(image=image)
+        response = client.annotate_image({
+            "image": image,
+            "features": [
+                {"type_": vision.Feature.Type.TEXT_DETECTION},
+                {"type_": vision.Feature.Type.LABEL_DETECTION},
+                {"type_": vision.Feature.Type.OBJECT_LOCALIZATION},
+                ]
+                })
 
         if response.error.message:
             raise RuntimeError(f"Vision API error: {response.error.message}")
         
-        full_text = response.full_text_annotation.text if response.full_text_annotation else ""
-        return full_text.strip()
+        ocr_text = ""
+        if response.text_annotations:
+            ocr_text = response.text_annotations[0].description.strip()
+            
+        labels = []
+        if response.label_annotations:
+            labels = [label.description for label in response.label_annotations]
+        labels_text = ", ".join(labels)
+            
+        combined_result = f"{ocr_text}\n\nLabels: {labels_text}".strip()
+        
+        return combined_result.strip()
     
     except FileNotFoundError:
         raise FileNotFoundError("Image file not found")
@@ -95,7 +113,7 @@ def summarize_text(text: str, output_file: str, restriction: str="") -> str: #re
             contents=prompt,
         )
         summary = getattr(response, "text", None) or str(response)
-        summary = summary.strip()
+        summary = re.sub(r'\s+', ' ', summary).strip()
         summary_data["text"] = summary
     except Exception as e:
         summary_data["error"] = str(e)
@@ -143,7 +161,7 @@ def test():
     '''
 
     '''
-    image_path = Path("/Users/sebastianinouye/Desktop/image.png").expanduser()
+    image_path = Path("/Users/sebastianinouye/Desktop/nsci.png").expanduser()
     
     try:
         result = extract_text_from_image(image_path)
@@ -170,11 +188,12 @@ def test():
     '''
     
     '''
-    pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
-    image_path = Path("/Users/sebastianinouye/Desktop/image.png").expanduser()
+    #pdf_path = Path("/Users/sebastianinouye/Desktop/sample.pdf")
+    image_path = Path("/Users/sebastianinouye/Desktop/nsci.png").expanduser()
     output_pdf_json = "image_output.json"
     restriction = "explain connections between concepts"
 
+    
     try:
         summary = file_to_summary(pdf_path, output_pdf_json, restriction)
         img_summary_attributes = get_attributes_from_json(summary)
