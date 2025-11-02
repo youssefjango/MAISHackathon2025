@@ -68,16 +68,15 @@ export default function Create() {
         setProgress(100);
     };
 
-    // Call backend to generate PDF with restrictions + files and capture blob URL
-    const generatePdf = async (restrictions, pdfs, images) => {
+    // Call backend to generate PDF with restrictions + combined files and capture blob URL
+    const generatePdf = async (restrictions, files) => {
         setSubmitting(true);
         setPdfUrl(null);
         startProgress();
         try {
             const form = new FormData();
             form.append("restrictions", restrictions);
-            (pdfs || []).forEach((f) => form.append("pdfs", f));
-            (images || []).forEach((f) => form.append("images", f));
+            (files || []).forEach((f) => form.append("files", f));
 
             const res = await fetch("http://localhost:8000/generate-pdf", {
                 method: "POST",
@@ -137,9 +136,9 @@ export default function Create() {
                 alert(`You can select up to ${MAX_UPLOADS} files total.`);
                 return;
             }
-
-            // 4) Ask backend for PDF (multipart with files)
-            await generatePdf(restrictions, pdfFiles, imageFiles);
+            console.log("Final files:", [...pdfFiles, ...imageFiles]);
+            // 4) Ask backend for PDF (multipart with combined files)
+           // await generatePdf(restrictions, [...pdfFiles, ...imageFiles]);
         } else {
             setCurrentIndex((prev) => prev + 1);
         }
