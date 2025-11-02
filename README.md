@@ -14,7 +14,7 @@ Built with **React + Vite**, it allows users to create study aids using either p
 Memo.AI simplifies note-taking and studying by providing a clean interface where users can:
 - Create custom cheatsheets from AI prompts or predefined templates.
 - View and manage all saved sheets in a responsive dashboard.
-- Download their sheets in **PDF** or **DOCX** formats.
+- Download their sheets in **PDF** formats.
 - Share cheatsheets publicly with other learners.
 
 ---
