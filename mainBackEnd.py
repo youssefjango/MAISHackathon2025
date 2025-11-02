@@ -35,13 +35,13 @@ Generate a complete, print-ready HTML document with inline CSS.
 Requirements:
 Choose the most appropriate layout style (CSS Grid or CSS Columns, floats or flexbox) based on content:
 Prioritize readability
-Ensure no overflowing content that gets cut off when printed.
-Use small page margins (around 0.5cm).
+Ensure no overflowing content that gets cut off.
+Use small page margins (around 0.5cm) and make sure the content is aligned with the margins.
 Visually distinguish definitions, examples, and exercises using subtle colored boxes.
 all content must flow naturally.
 Use colors and borders consistently for visual hierarchy and alignment.
 
-Follow these IMPORTANT restrictions (user-specified preferences):
+Follow these IMPORTANT restrictions (user-specified preferences) and prioritize page numbers:
 {restrictions}
 
 Input Material:

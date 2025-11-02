@@ -1,0 +1,5 @@
+{
+    "text": "This text describes a C program that prompts the user for a 'Y' or 'y' input and responds with 'Welcome' or 'Sorry.' It also explains fundamental C concepts demonstrated in the code, such as the `stdio.h` library, `main` function, `puts()`, `getc()`, variable declaration, return types, and function arguments.",
+    "restriction": "The size of each page should be of the format of one A4(8.27 × 11.69 in). There should be 2 pages of maximum pages allowed. The content should be prioritized in the cheatsheet should be key concepts, examples. The following features of the crib sheet should make the sheet more comfortable to use, and should be prioritized: Color-coding or highlighting key parts. The overall layout style should be Hierarchical outline (headings and subpoints). The font size used in the cheatsheet should be in the Medium (11-12 pt) range to ensure readability and efficiency.",
+    "error": null
+}
