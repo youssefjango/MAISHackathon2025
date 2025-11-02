@@ -9,9 +9,9 @@ export const questions = [
   },
   {
     id: 1,
-    text: "What is the maximum number of pages for your cheatsheet?",
+    text: "What is the exact number of pages for your cheatsheet?",
     restrictionPreffix: "There should be ",
-    restrictionSuffix: " of maximum pages allowed.",
+    restrictionSuffix: " exactly allowed.",
     options: ["1 page", "2 pages", "3 pages", "4 pages", "no limit"],
     maxSelections: 1,
   },

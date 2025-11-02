@@ -1,9 +1,6 @@
 {
     "json_files": [
-        "sample_text.json",
-        "image_summary.json"
+        "vg_w_zk0_text.json"
     ],
-    "image_files": [
-        "/Users/sebastianinouye/Desktop/image.png"
-    ]
+    "image_files": []
 }
