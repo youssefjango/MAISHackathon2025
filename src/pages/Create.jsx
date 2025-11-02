@@ -91,7 +91,7 @@ export default function Create() {
             const url = URL.createObjectURL(blob);
             setPdfUrl(url);
         } catch (err) {
-            alert("Failed to generate PDF.");
+            //alert("Failed to generate PDF.");
             window.location.href = "/";
         } finally {
             stopProgress();
@@ -138,7 +138,7 @@ export default function Create() {
             }
             console.log("Final files:", [...pdfFiles, ...imageFiles]);
             // 4) Ask backend for PDF (multipart with combined files)
-           // await generatePdf(restrictions, [...pdfFiles, ...imageFiles]);
+           await generatePdf(restrictions, [...pdfFiles, ...imageFiles]);
         } else {
             setCurrentIndex((prev) => prev + 1);
         }
